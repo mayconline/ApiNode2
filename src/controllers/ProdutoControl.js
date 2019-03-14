@@ -5,27 +5,56 @@ const Produto = mongoose.model('Produto');
 module.exports ={
 
     async getAll(req,res){
-        const produtos = await Produto.find();
-          return res.json(produtos);
+        try{
+            const produtos = await Produto.find().sort('createDate');
+            return res.json(produtos);
+        }
+        catch(e){
+            return res.status(404).send(`${e} Não foi Encontrado`);
+        }
+     
     },
 
     async getById(req,res){
-        const produtoId = await Produto.findById(req.params.id);
+        try{
+            const produtoId = await Produto.findById(req.params.id);
             return res.json(produtoId);
+        }
+        catch(e){
+            return res.status(404).send(`${e} Não foi Encontrado`);
+        };
+        
     },
 
     async cadastro(req,res){
-        const cadastro = await Produto.create(req.body);
-          return res.json(cadastro);
+        try{
+            const cadastro = await Produto.create(req.body);
+            return res.json(cadastro);
+        }
+        catch(e){
+            return res.status(400).send(`${e} Favor verifique os dados digitados`);
+        };
     },
 
     async alterar(req,res){
-        const alterar = await Produto.findByIdAndUpdate(req.params.id ,req.body, {new:true});
+        try{
+            const alterar = await Produto.findByIdAndUpdate(req.params.id ,req.body, {new:true});
             return res.json(alterar);
+        }
+        catch(e){
+            return res.status(400).send(`${e} Favor verifique os dados digitados`);
+        };  
+        
     },
 
     async delete(req,res){
-        await Produto.findByIdAndRemove(req.params.id);
-            return res.send();
+        try{
+            await Produto.findByIdAndRemove(req.params.id);
+            return res.send("Produto Removido com Sucesso");
+        }   
+        catch(e){
+            return res.status(400).send(`${e} Não foi encontrado`);
+        };
+        
     }
 };

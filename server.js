@@ -14,13 +14,8 @@ mongoose.connect('mongodb://localhost:27017/testeNode',
 require('./src/models/produto');
 require('./src/models/user');
 
-
-
 //carrega rotas
 app.use('/api', require('./src/routes/routes'));
-
-
-
 
 //lista o server na porta
 app.listen(3000);
