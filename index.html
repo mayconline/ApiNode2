@@ -6,9 +6,8 @@
     </head>
     <body>
 
-                <ul id="titulo"></ul>
+                <div id="titulo"></div>
 
-                <ul id='valor'></ul>
      
       
 
@@ -22,20 +21,17 @@ var socket = io('http://localhost:3000');
            // console.log(data);
   
             for (todo of data){
-                //console.log(todo)
+
+                document.getElementById("titulo").innerHTML += todo.titulo + "<br>";
+
+                
+                /* renderiza via javascript
                 var TituloEl = document.createElement('li');
                 var TituloTxt = document.createTextNode(todo.titulo);
                 TituloEl.append(TituloTxt);
               
                document.getElementById("titulo").append(TituloEl);  
-              
-               
-               //renderiza na tela com javascript
-               var descriEl = document.createElement('li');
-                var descriTxt = document.createTextNode(todo.descricao);
-                descriEl.append(descriTxt);
-              
-               document.getElementById("valor").append(descriEl); 
+               */
              }
 
 
