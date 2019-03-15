@@ -1,6 +1,4 @@
-const mongoose = require ('mongoose');
-
-const Produto = mongoose.model('Produto');
+const Produto = require('../models/produto');
 
 module.exports ={
 
@@ -18,7 +16,7 @@ module.exports ={
     async getById(req,res){
         try{
             const produtoId = await Produto.findById(req.params.id);
-            return res.json(produtoId);
+           return res.json(produtoId);
         }
         catch(e){
             return res.status(404).send(`${e} Não foi Encontrado`);
@@ -29,7 +27,12 @@ module.exports ={
     async cadastro(req,res){
         try{
             const cadastro = await Produto.create(req.body);
+            
+            //emite evento socket.io
+            req.io.emit('cadastro', cadastro);
+            
             return res.json(cadastro);
+            
         }
         catch(e){
             return res.status(400).send(`${e} Favor verifique os dados digitados`);
@@ -56,5 +59,19 @@ module.exports ={
             return res.status(400).send(`${e} Não foi encontrado`);
         };
         
+    },
+
+    async contador(req,res){
+       
+       try{
+        const contador = await Produto.countDocuments({titulo:'sorvete'});
+        return res.json(contador);
+
+       }
+       catch(e){
+        return res.status(400).send(`${e} Houve um erro de Processamento`);
+       };
+        
+
     }
 };

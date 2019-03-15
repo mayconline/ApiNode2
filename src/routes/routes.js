@@ -11,7 +11,7 @@ router.post('/produtos', ProdutoControl.cadastro);
 router.put('/produtos/:id', ProdutoControl.alterar);
 router.delete('/produtos/:id', ProdutoControl.delete);
 
-
+router.get('/quantidade', ProdutoControl.contador);
 
 router.get('/user', UserControl.getAll);
 
