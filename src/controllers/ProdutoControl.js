@@ -5,6 +5,10 @@ module.exports ={
     async getAll(req,res){
         try{
             const produtos = await Produto.find().sort('createDate');
+
+             //emite evento socket.io
+             req.io.emit('produtos', produtos);
+
             return res.json(produtos);
         }
         catch(e){
