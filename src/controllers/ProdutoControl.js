@@ -4,10 +4,7 @@ module.exports ={
 
     async getAll(req,res){
         try{
-            const produtos = await Produto.find().sort('createDate');
-
-             //emite evento socket.io
-             req.io.emit('produtos', produtos);
+            const produtos = await Produto.find().sort('-createDate');
 
             return res.json(produtos);
         }
@@ -68,7 +65,7 @@ module.exports ={
     async contador(req,res){
        
        try{
-        const contador = await Produto.countDocuments({titulo:'sorvete'});
+        const contador = await Produto.countDocuments({titulo:req.body.titulo});
         return res.json(contador);
 
        }
