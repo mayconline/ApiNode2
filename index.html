@@ -6,14 +6,35 @@
     </head>
     <body>
 
+                <div id="titulo"></div>
+
+     
+      
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
         <script type="text/javascript">
           
           
 var socket = io('http://localhost:3000');
         
-        socket.on('cadastro', function(data){
-            console.log(data);
+        socket.on('produtos', function(data){
+           // console.log(data);
+  
+            for (todo of data){
+
+                document.getElementById("titulo").innerHTML += todo.titulo + "<br>";
+
+                
+                /* renderiza via javascript
+                var TituloEl = document.createElement('li');
+                var TituloTxt = document.createTextNode(todo.titulo);
+                TituloEl.append(TituloTxt);
+              
+               document.getElementById("titulo").append(TituloEl);  
+               */
+             }
+
+
         });
 
        
