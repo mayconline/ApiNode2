@@ -16,9 +16,12 @@ const io = require('socket.io')(server);
 
 
 //conecta ao mongo
-mongoose.connect('mongodb://localhost:27017/testeNode',
-{useNewUrlParser:true}
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/testeNode', { useNewUrlParser: true }).then(
+  () => {console.log('Conectado ao db com sucesso') },
+  err => { console.log('nao foi possivel conectar a data base '+ err)}
 );
+
 
 //socket.io
 app.use((req,res,next)=>{
@@ -27,7 +30,9 @@ app.use((req,res,next)=>{
 });
 
 //carrega rotas
-app.use('/api', require('./src/routes/routes'));
+app.use('/', require('./src/routes/indexRoute'));
+app.use('/produtos', require('./src/routes/ProdutoRoute'));
+app.use('/usuarios', require('./src/routes/UserRoute'));
 
 //lista o server na porta
 //app.listen(3000);
