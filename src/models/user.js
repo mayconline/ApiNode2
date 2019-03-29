@@ -11,12 +11,14 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true,
-        lowercase:true
+        lowercase:true,
+        trim:true
     },
     senha:{
         type:String,
         required:true,
-        select:false
+        select:false,
+        trim:true
     },
      createDate:{
         type:Date,

@@ -16,9 +16,20 @@ module.exports ={
     },
 
     async registro (req, res){
-        const registro = await User.create(req.body);
+
+        const {usuario} = req.body;
+            const user = await User.findOne({usuario});
+                if(user) return res.send('usuario ja cadastrado');
+
+        try {
+            const registro = await User.create(req.body);
+             return res.json(registro)
+        }
+
+        catch(e) {
+            return res.send(`Faltam Dados para Registro ${e}`)
+        }        
         
-        return res.json(registro)
     },
 
     async login(req, res) {
@@ -28,15 +39,14 @@ module.exports ={
 
         try {
 
-        const user = await User.findOne({usuario}).select('+senha');
+            const user = await User.findOne({usuario}).select('+senha');
+                 if(!user) return res.send('usuario nao registrado');
 
-        if(!user) return res.send('usuario nao registrado');
+            const logado = await bcrypt.compare(senha, user.senha);
+                if(!logado) return res.send('Senha Invalida');
 
-        const logado = await bcrypt.compare(senha, user.senha);
-        if(!logado) return res.send('Senha Invalida');
-
-        user.senha = undefined;
-        return res.send(`${user.nome} está logado`);
+             user.senha = undefined;
+                return res.send(`${user.nome} está logado`);
 
         }
 
