@@ -8,4 +8,4 @@
 
 "criado rotas de usuario e npm install bcrypt"
 
-"criado npm install dotenv"
+"criado npm install dotenv , jsonwebtoken"

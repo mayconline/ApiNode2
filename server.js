@@ -2,9 +2,13 @@ const express = require ('express');
 const mongoose = require ('mongoose');
 const cors = require('cors');
 
+
 //arquvo de variaveis .env
 const env = require('dotenv');
 env.config();
+
+//extraindo as variaveis que precisamos
+const {MONGO_URL, PORT} = process.env;
 
 const app = express();
 
@@ -20,7 +24,7 @@ const io = require('socket.io')(server);
 
 //conecta ao mongo
 mongoose.Promise = global.Promise;
-mongoose.connect( process.env.MONGO_URL, { useNewUrlParser: true }).then(
+mongoose.connect( MONGO_URL, { useNewUrlParser: true }).then(
   () => {console.log('Conectado ao db com sucesso') },
   err => { console.log('nao foi possivel conectar a data base '+ err)}
 );
@@ -40,4 +44,4 @@ app.use('/usuarios', require('./src/routes/UserRoute'));
 //lista o server na porta
 //app.listen(3000);
 //lista o server com socket.io
-server.listen(process.env.PORT);
+server.listen(PORT);
