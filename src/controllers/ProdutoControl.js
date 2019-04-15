@@ -36,7 +36,8 @@ module.exports ={
             
         }
         catch(e){
-            return res.status(400).send(`${e} Favor verifique os dados digitados`);
+            return res.status(400).send({error:`${e} Verifique os dados digitados`});
+            
         };
     },
 

@@ -45,15 +45,15 @@ module.exports ={
     async login(req, res) {
         const {usuario, senha} = req.body;
 
-        if(!usuario || !senha) return res.send("Favor insira os dados de login");
+        if(!usuario || !senha) return res.status(400).send("Favor insira os dados de login");
 
         try {
 
             const user = await User.findOne({usuario}).select('+senha');
-                 if(!user) return res.send('usuario nao registrado');
+                 if(!user) return res.status(401).send('usuario nao registrado');
 
             const logado = await bcrypt.compare(senha, user.senha);
-                if(!logado) return res.send('Senha Invalida');
+                if(!logado) return res.status(401).send('Senha Invalida');
 
              user.senha = undefined;
 
@@ -65,7 +65,7 @@ module.exports ={
         }
 
         catch(e) {
-            return res.send(`Erro ao buscar o usuario ${e}`);
+            return res.status(400).send(`Erro ao buscar o usuario ${e}`);
         }
     }
 };

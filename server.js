@@ -24,7 +24,7 @@ const io = require('socket.io')(server);
 
 //conecta ao mongo
 mongoose.Promise = global.Promise;
-mongoose.connect( MONGO_URL, { useNewUrlParser: true }).then(
+mongoose.connect( MONGO_URL, { useNewUrlParser: true, useCreateIndex: true, }).then(
   () => {console.log('Conectado ao db com sucesso') },
   err => { console.log('nao foi possivel conectar a data base '+ err)}
 );
