@@ -15,10 +15,7 @@ const produtoSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    createDate:{
-        type:Date,
-        default:Date.now,
-    },
-});
+}, {timestamps:true}
+    );
 
 module.exports = mongoose.model('Produto', produtoSchema);

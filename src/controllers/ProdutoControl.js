@@ -4,7 +4,7 @@ module.exports ={
 
     async getAll(req,res){
         try{
-            const produtos = await Produto.find().sort('-createDate');
+            const produtos = await Produto.find().sort('-createdAt');
 
             return res.json(produtos);
         }

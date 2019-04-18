@@ -20,12 +20,10 @@ const userSchema = new mongoose.Schema({
         select:false,
         trim:true
     },
-     createDate:{
-        type:Date,
-        default:Date.now,
-    },
-    
-});
+},
+{timestamps:true}
+
+);
 
 userSchema.pre('save', async function(next){
     let user = this;
