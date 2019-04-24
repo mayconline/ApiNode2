@@ -2,6 +2,7 @@ const Produto = require('../models/produto');
 
 module.exports ={
 
+    
     async getAll(req,res){
         try{
             const produtos = await Produto.find().sort('-createdAt');

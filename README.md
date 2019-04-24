@@ -9,3 +9,5 @@
 "criado rotas de usuario e npm install bcrypt"
 
 "criado npm install dotenv , jsonwebtoken"
+
+"utilizado npm install multer e morgan --save"
