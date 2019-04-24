@@ -35,4 +35,3 @@ UserInterfaceState.xcuserstate
 
 tmp/fotos/*
 !tmp/fotos/.gitkeep
-.env
