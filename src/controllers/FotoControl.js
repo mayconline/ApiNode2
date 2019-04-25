@@ -1,4 +1,7 @@
 const Fotos = require('../models/fotos');
+const cloudinary = require('cloudinary');
+
+const {TYPE_STORAGE} = process.env;
 
 const fs = require('fs');
 const path = require('path');
@@ -6,20 +9,24 @@ const path = require('path');
 module.exports={
    async post(req, res) {
 
+    console.log(req.file)
         //local url = path//
+        //online bytes, key, secure_url , public_id //
 
-        const {originalname, size, key, url=''} = req.file;
+       const {originalname, bytes:size, key, secure_url:url='', public_id} = req.file;
 
-        const fotos = await Fotos.create({  
+   
+         const fotos = await Fotos.create({  
             name: originalname,
             size,
             key,
-            url
+            url,
+            public_id
           
-        })
+        }) 
 
 
-        return res.json(fotos);
+     return res.json(fotos);
     },
 
     async getAll(req, res){
@@ -30,19 +37,35 @@ module.exports={
 
     async delete(req,res){
         let foto = await Fotos.findById(req.params.id);
-        let caminho =  await path.resolve(__dirname,'..','..','tmp','fotos', foto.key);
+
+        if(TYPE_STORAGE == 'online') {
+            await cloudinary.v2.uploader.destroy(foto.public_id);
+        }
+        else if (TYPE_STORAGE == 'local') {
      
-                //verifica se existe esse caminho
+         //verifica se a foto tem url
+          if(foto.url!='')   {
+
+            let caminho =  await path.resolve(__dirname,'..','..','tmp','fotos', foto.key);
+
+              //verifica se existe esse caminho
          await  fs.access(caminho, (err)=>{
+            
             if(!err) {
                 //deleta a foto do caminho
                 fs.unlink(caminho, err =>{
                     if(err) console.log(err);
                 })
-            }
-        });
+            } 
+        }); 
+
+          } 
+          
         
-        await Fotos.remove();
+
+        };
+   
+        await foto.remove();
 
         return res.send('foto excluida com sucesso')
     }

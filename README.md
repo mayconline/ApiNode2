@@ -11,3 +11,5 @@
 "criado npm install dotenv , jsonwebtoken"
 
 "utilizado npm install multer e morgan --save"
+
+"utilizado npm install cloudinary  e multer-storage-cloudinary "

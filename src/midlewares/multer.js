@@ -1,7 +1,13 @@
 const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
+
+const cloudinary = require('cloudinary');
+const cloudinaryStorage = require('multer-storage-cloudinary');
+
 const {TYPE_STORAGE} = process.env;
+
+
 
 //objeto com os tipos de storages//
 const TypeStorage = {
@@ -22,7 +28,19 @@ const TypeStorage = {
 
     }),
     //storage Online //
-    online:'null'
+    online: cloudinaryStorage({
+        cloudinary:cloudinary,
+        folder:'fotos',
+        filename:(req, file, cb)=>{
+            crypto.randomBytes(16,(err,hash)=>{
+                if(err) cb(err);
+
+              file.key = `${hash.toString('hex')}-${file.originalname}`;
+            
+                cb(null,file.key);
+            })
+        }
+    })
 }
 
 module.exports ={
