@@ -39,7 +39,8 @@ const TypeStorage = {
             
                 cb(null,file.key);
             })
-        }
+        },
+       transformation:{quality: "auto:good"}
     })
 }
 

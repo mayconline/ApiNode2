@@ -26,7 +26,10 @@ module.exports={
         }) 
 
 
-     return res.json(fotos);
+     /*  const teste = await cloudinary.image(public_id, {quality: "auto:good"})
+        console.log(teste) */
+
+        return res.json(fotos);
     },
 
     async getAll(req, res){
