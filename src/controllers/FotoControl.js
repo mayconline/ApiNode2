@@ -1,4 +1,5 @@
-const Fotos = require('../models/fotos');
+const Fotos = require('../models/Fotos');
+const Produto = require('../models/produto');
 const cloudinary = require('cloudinary');
 
 const {TYPE_STORAGE} = process.env;
@@ -10,13 +11,17 @@ module.exports={
    async post(req, res) {
 
     console.log(req.file)
+
+    const produtoId = await Produto.findById(req.params.id);
+
+
         //local url = path//
         //online bytes, key, secure_url , public_id //
 
        const {originalname, bytes:size, key, secure_url:url='', public_id} = req.file;
 
    
-         const fotos = await Fotos.create({  
+         const foto = await Fotos.create({  
             name: originalname,
             size,
             key,
@@ -25,11 +30,13 @@ module.exports={
           
         }) 
 
+        await produtoId.fotos.push(foto);
+        await produtoId.save();
 
      /*  const teste = await cloudinary.image(public_id, {quality: "auto:good"})
         console.log(teste) */
 
-        return res.json(fotos);
+        return res.json(foto);
     },
 
     async getAll(req, res){

@@ -48,7 +48,7 @@ app.use((req,res,next)=>{
 app.use('/', require('./src/routes/indexRoute'));
 app.use('/produtos', require('./src/routes/ProdutoRoute'));
 app.use('/usuarios', require('./src/routes/UserRoute'));
-app.use('/fotos', require('./src/routes/fotoRoute'));
+//app.use('/fotos', require('./src/routes/fotoRoute'));
 
 //lista o server na porta
 //app.listen(3000);

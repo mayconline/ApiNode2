@@ -15,6 +15,10 @@ const produtoSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
+    fotos:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Fotos'
+    }],
 }, {timestamps:true}
     );
 
