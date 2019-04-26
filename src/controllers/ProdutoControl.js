@@ -29,12 +29,7 @@ module.exports ={
                     path:'fotos',
                     options:{sort:{createdAt: -1}}
                 });
-
-
                 
-                
-                
-
            return res.json(produtoId);
         }
         catch(e){
