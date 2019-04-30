@@ -36,6 +36,8 @@ module.exports={
      /*  const teste = await cloudinary.image(public_id, {quality: "auto:good"})
         console.log(teste) */
 
+        req.io.emit('cadFotos',foto)
+
         return res.json(foto);
     },
 

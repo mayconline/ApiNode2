@@ -47,6 +47,7 @@ module.exports ={
             
             return res.json(cadastro);
             
+            
         }
         catch(e){
             return res.status(400).send({error:`${e} Verifique os dados digitados`});
